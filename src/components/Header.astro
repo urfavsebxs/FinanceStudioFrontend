@@ -1,5 +1,6 @@
 ---
 // Header component
+const { showLogout = false } = Astro.props;
 ---
 
 <header class="bg-[#2F3E58] text-slate-100 shadow-sm">
@@ -21,25 +22,45 @@
 			</div>
 		</div>
 
-		<button
-			type="button"
-			class="group inline-flex h-11 w-11 items-center justify-center rounded-full bg-white/10 ring-1 ring-white/20 transition hover:bg-white/15 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/80"
-			aria-label="Perfil de usuario"
-		>
-			<svg
-				class="h-6 w-6 text-white/90"
-				viewBox="0 0 24 24"
-				fill="none"
-				stroke="currentColor"
-				stroke-width="1.6"
-				aria-hidden="true"
+		<div class="flex items-center gap-3">
+			{showLogout && (
+				<button
+					id="logoutButton"
+					type="button"
+					class="hidden rounded-full border border-white/30 px-4 py-2 text-xs font-semibold uppercase tracking-[0.16em] text-white/90 transition hover:bg-white/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/80 sm:inline-flex"
+				>
+					Cerrar sesion
+				</button>
+			)}
+			<button
+				type="button"
+				class="group inline-flex h-11 w-11 items-center justify-center rounded-full bg-white/10 ring-1 ring-white/20 transition hover:bg-white/15 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/80"
+				aria-label="Perfil de usuario"
 			>
-				<path
-					stroke-linecap="round"
-					stroke-linejoin="round"
-					d="M16 8.5a4 4 0 1 1-8 0 4 4 0 0 1 8 0ZM4 20a8 8 0 0 1 16 0"
-				/>
-			</svg>
-		</button>
+				<svg
+					class="h-6 w-6 text-white/90"
+					viewBox="0 0 24 24"
+					fill="none"
+					stroke="currentColor"
+					stroke-width="1.6"
+					aria-hidden="true"
+				>
+					<path
+						stroke-linecap="round"
+						stroke-linejoin="round"
+						d="M16 8.5a4 4 0 1 1-8 0 4 4 0 0 1 8 0ZM4 20a8 8 0 0 1 16 0"
+					/>
+				</svg>
+			</button>
+		</div>
 	</div>
 </header>
+
+<script>
+	const logoutButton = document.getElementById('logoutButton');
+	logoutButton?.addEventListener('click', () => {
+		localStorage.removeItem('authToken');
+		localStorage.removeItem('refreshToken');
+		window.location.href = '/login';
+	});
+</script>

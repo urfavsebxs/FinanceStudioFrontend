@@ -1,0 +1,19 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Panel from '../components/Dashboard/Dashboard.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+---
+
+<Layout>
+    <Header showLogout={true} />
+    <Panel />
+    <Footer />
+</Layout>
+
+<script>
+    const token = localStorage.getItem('authToken');
+    if (!token) {
+        window.location.replace('/register');
+    }
+</script>
