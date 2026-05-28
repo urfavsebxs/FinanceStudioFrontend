@@ -1,0 +1,89 @@
+---
+// Login form component
+---
+
+<section class="flex h-full w-full flex-1 flex-col">
+	<form
+		class="flex h-full w-full flex-1 flex-col gap-4 bg-white/95 p-6 ring-1 ring-slate-200 sm:gap-6 sm:p-8"
+	>
+		<div class="flex flex-col gap-4">
+			<div class="flex flex-col gap-1">
+				<h2 class="text-xl font-semibold text-[#2F3E58] sm:text-2xl">
+					Inicia sesion
+				</h2>
+				<p class="text-sm text-slate-700 sm:text-base">
+					Accede con tu correo y contraseña.
+				</p>
+			</div>
+
+			<div class="flex flex-col gap-1">
+				<label class="text-sm font-semibold text-slate-700" for="loginEmail">
+					Correo electronico
+				</label>
+				<input
+					id="loginEmail"
+					name="email"
+					type="email"
+					autocomplete="email"
+					inputmode="email"
+					aria-describedby="loginEmailHelp"
+					required
+					class="h-11 rounded-lg border border-slate-300 bg-white px-3 text-sm text-slate-800 placeholder:text-slate-400 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#2F3E58]/70"
+					placeholder="correo@ejemplo.com"
+				/>
+				<p id="loginEmailHelp" class="text-xs text-slate-500">
+					Usa el correo con el que registraste la cuenta.
+				</p>
+			</div>
+
+			<div class="flex flex-col gap-1">
+				<label class="text-sm font-semibold text-slate-700" for="loginPassword">
+					Contraseña
+				</label>
+				<input
+					id="loginPassword"
+					name="password"
+					type="password"
+					autocomplete="current-password"
+					aria-describedby="loginPasswordHelp"
+					required
+					class="h-11 rounded-lg border border-slate-300 bg-white px-3 text-sm text-slate-800 placeholder:text-slate-400 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#2F3E58]/70"
+					placeholder="Tu contraseña"
+				/>
+				<p id="loginPasswordHelp" class="text-xs text-slate-500">
+					Mantendremos tu sesion segura.
+				</p>
+			</div>
+
+			<div class="flex items-center justify-between text-xs sm:text-sm">
+				<label class="flex items-center gap-2 text-slate-700">
+					<input
+						type="checkbox"
+						name="remember"
+						class="h-4 w-4 rounded border-slate-300 text-[#2F3E58] focus-visible:ring-2 focus-visible:ring-[#2F3E58]/70"
+					/>
+					<span>Recordarme</span>
+				</label>
+				<a
+					href="/"
+					class="text-slate-600 underline-offset-4 transition hover:text-slate-800 hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#2F3E58]/60"
+				>
+					Olvide mi contraseña
+				</a>
+			</div>
+		</div>
+
+		<div class="flex flex-col gap-2">
+			<button
+				type="submit"
+				class="inline-flex h-11 items-center justify-center rounded-full bg-[#2F3E58] px-5 text-sm font-semibold text-white transition hover:bg-[#27324A] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#2F3E58]/70"
+			>
+				Ingresar
+			</button>
+
+			<p class="text-xs text-slate-500">
+				No tienes cuenta? <a href="/register" class="text-[#2F3E58] underline-offset-4 hover:underline">Crear cuenta</a>
+			</p>
+		</div>
+	</form>
+</section>

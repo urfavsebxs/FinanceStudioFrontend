@@ -1,0 +1,99 @@
+---
+// Registration form component
+---
+
+<section class="w-full">
+	<form
+		class="flex w-full flex-col gap-4 bg-white/95 p-6 ring-1 ring-slate-200 sm:gap-5 sm:p-8"
+	>
+		<div class="flex flex-col gap-1">
+			<h2 class="text-xl font-semibold text-[#2F3E58] sm:text-2xl">Crea tu cuenta</h2>
+			<p class="text-sm text-slate-700 sm:text-base">
+				Solo pedimos lo esencial para abrir tu cuenta.
+			</p>
+		</div>
+
+		<div class="flex flex-col gap-1">
+			<label class="text-sm font-semibold text-slate-700" for="fullName">
+				Nombre completo
+			</label>
+			<input
+				id="fullName"
+				name="fullName"
+				type="text"
+				autocomplete="name"
+				aria-describedby="fullNameHelp"
+				required
+				class="h-11 rounded-lg border border-slate-300 bg-white px-3 text-sm text-slate-800 placeholder:text-slate-400 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#2F3E58]/70"
+				placeholder="Tu nombre y apellido"
+			/>
+			<p id="fullNameHelp" class="text-xs text-slate-500">
+				Usaremos este nombre para personalizar tu panel.
+			</p>
+		</div>
+
+		<div class="flex flex-col gap-1">
+			<label class="text-sm font-semibold text-slate-700" for="email">
+				Correo electrónico
+			</label>
+			<input
+				id="email"
+				name="email"
+				type="email"
+				autocomplete="email"
+				inputmode="email"
+				aria-describedby="emailHelp"
+				required
+				class="h-11 rounded-lg border border-slate-300 bg-white px-3 text-sm text-slate-800 placeholder:text-slate-400 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#2F3E58]/70"
+				placeholder="correo@ejemplo.com"
+			/>
+			<p id="emailHelp" class="text-xs text-slate-500">
+				Enviaremos un mensaje de verificación.
+			</p>
+		</div>
+
+		<div class="flex flex-col gap-1">
+			<label class="text-sm font-semibold text-slate-700" for="password">
+				Contraseña
+			</label>
+			<input
+				id="password"
+				name="password"
+				type="password"
+				autocomplete="new-password"
+				aria-describedby="passwordHelp"
+				required
+				minlength="8"
+				class="h-11 rounded-lg border border-slate-300 bg-white px-3 text-sm text-slate-800 placeholder:text-slate-400 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#2F3E58]/70"
+				placeholder="Minimo 8 caracteres"
+			/>
+			<p id="passwordHelp" class="text-xs text-slate-500">
+				Minimo 8 caracteres, incluye letras y numeros.
+			</p>
+		</div>
+
+		<label class="flex items-start gap-2 text-xs text-slate-700 sm:text-sm">
+			<input
+				type="checkbox"
+				name="terms"
+				required
+				class="mt-0.5 h-4 w-4 rounded border-slate-300 text-[#2F3E58] focus-visible:ring-2 focus-visible:ring-[#2F3E58]/70"
+			/>
+			<span>
+				Acepto los términos y la política de privacidad.
+			</span>
+		</label>
+
+		<div class="flex flex-col gap-1">
+			<button
+				type="submit"
+				class="inline-flex h-11 items-center justify-center rounded-full bg-[#2F3E58] px-5 text-sm font-semibold text-white transition hover:bg-[#27324A] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#2F3E58]/70"
+			>
+				Crear cuenta
+			</button>
+			<p class="text-xs text-slate-500">
+				Al crear la cuenta, habilitas el panel financiero personal.
+			</p>
+		</div>
+	</form>
+</section>
