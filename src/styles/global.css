@@ -1,1 +1,53 @@
 @import "tailwindcss";
+@import url('https://fonts.googleapis.com/css2?family=Archivo:wght@300;400;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap');
+@import "tailwindcss";
+
+@layer base {
+	body {
+		@apply bg-[#d7d8da] text-[#0f1b2b] font-['Archivo'] m-0 min-h-screen;
+	}
+}
+
+.muted {
+	color: #7c8190;
+}
+
+.pill.active {
+	background: #2f3c56;
+	border-color: #2f3c56;
+	color: #ffffff;
+}
+
+.ring {
+	--ring-fill: 0%;
+	--ring-color: #2f3c56;
+	width: 88px;
+	height: 88px;
+	border-radius: 999px;
+	background: conic-gradient(var(--ring-color) var(--ring-fill), #e5e7eb 0%);
+	display: grid;
+	place-items: center;
+	margin-bottom: 10px;
+	position: relative;
+}
+
+.ring::after {
+	content: '';
+	width: 58px;
+	height: 58px;
+	border-radius: 999px;
+	background: #ffffff;
+	position: absolute;
+}
+
+.ring.green {
+	--ring-color: #1d8f5a;
+}
+
+.ring.pink {
+	--ring-color: #cc2e8c;
+}
+
+.ring.blue {
+	--ring-color: #2a6fd2;
+}

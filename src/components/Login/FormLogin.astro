@@ -1,9 +1,13 @@
 ---
 // Login form component
+const apiBase = import.meta.env.DEV
+	? import.meta.env.PUBLIC_BACKEND_URL_DEV
+	: import.meta.env.PUBLIC_BACKEND_URL_PROD;
 ---
 
 <section class="flex h-full w-full flex-1 flex-col">
 	<form
+		id="loginForm"
 		class="flex h-full w-full flex-1 flex-col gap-4 bg-white/95 p-6 ring-1 ring-slate-200 sm:gap-6 sm:p-8"
 	>
 		<div class="flex flex-col gap-4">
@@ -74,8 +78,15 @@
 		</div>
 
 		<div class="flex flex-col gap-2">
+			<div
+				id="loginStatus"
+				class="hidden rounded-lg border border-slate-200 bg-slate-50 px-3 py-2 text-xs text-slate-700"
+				role="status"
+				aria-live="polite"
+			></div>
 			<button
 				type="submit"
+				id="loginSubmit"
 				class="inline-flex h-11 items-center justify-center rounded-full bg-[#2F3E58] px-5 text-sm font-semibold text-white transition hover:bg-[#27324A] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#2F3E58]/70"
 			>
 				Ingresar
@@ -87,3 +98,85 @@
 		</div>
 	</form>
 </section>
+
+<script define:vars={{ apiBase }}>
+	const form = document.querySelector('#loginForm');
+	const status = document.querySelector('#loginStatus');
+	const submitButton = document.querySelector('#loginSubmit');
+	const normalizeBase = (value) => (value || '').replace(/\/+$/, '');
+
+	const setStatus = (message, type = 'info') => {
+		if (!status) return;
+		status.textContent = message;
+		status.classList.remove('hidden', 'border-emerald-200', 'bg-emerald-50', 'text-emerald-700', 'border-rose-200', 'bg-rose-50', 'text-rose-700');
+		if (type === 'success') {
+			status.classList.add('border-emerald-200', 'bg-emerald-50', 'text-emerald-700');
+			return;
+		}
+		if (type === 'error') {
+			status.classList.add('border-rose-200', 'bg-rose-50', 'text-rose-700');
+			return;
+		}
+		status.classList.add('border-slate-200', 'bg-slate-50', 'text-slate-700');
+	};
+
+	form?.addEventListener('submit', async (event) => {
+		event.preventDefault();
+		if (!apiBase) {
+			setStatus('Falta configurar la URL del backend.', 'error');
+			return;
+		}
+
+		const formData = new FormData(form);
+		const payload = {
+			email: String(formData.get('email') || '').trim(),
+			password: String(formData.get('password') || ''),
+		};
+
+		if (!payload.email || !payload.password) {
+			setStatus('Completa el correo y la contrasena.', 'error');
+			return;
+		}
+
+		const baseUrl = normalizeBase(apiBase);
+		setStatus('Validando credenciales...');
+		submitButton?.setAttribute('disabled', 'true');
+		submitButton?.classList.add('opacity-70', 'cursor-not-allowed');
+
+		try {
+			const response = await fetch(`${baseUrl}/auth/login`, {
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/json',
+					'Accept': 'application/json',
+				},
+				body: JSON.stringify(payload),
+			});
+
+			const data = await response.json().catch(() => ({}));
+			if (!response.ok) {
+				const message = data?.message || 'No se pudo iniciar sesion.';
+				setStatus(message, 'error');
+				return;
+			}
+
+			if (data?.accessToken || data?.token) {
+				localStorage.setItem('authToken', data.accessToken || data.token);
+			}
+			if (data?.refreshToken) {
+				localStorage.setItem('refreshToken', data.refreshToken);
+			}
+
+			setStatus('Ingreso exitoso. Redirigiendo...', 'success');
+			setTimeout(() => {
+				window.location.href = '/dashboard';
+			}, 600);
+		} catch (error) {
+			console.error(error);
+			setStatus('Ocurrio un error de conexion.', 'error');
+		} finally {
+			submitButton?.removeAttribute('disabled');
+			submitButton?.classList.remove('opacity-70', 'cursor-not-allowed');
+		}
+	});
+</script>
